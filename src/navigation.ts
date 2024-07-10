@@ -9,10 +9,10 @@ export interface Navigation {
   waitForLoadState(): Promise<void>;
 }
 
-export async function goto<T extends Navigation>(
+export async function goto<T extends Navigation>( // це дженерік - перший обджект який імплементує інтеряейс,  T - як стала змінна типу
   pageObject: T,
   urlParams?: Parameters<T['url']>[0],
   options?: GotoOptions
 ) {
-  return pageObject.page.goto(pageObject.url(urlParams), options);
+  return pageObject.page.goto(pageObject.url(urlParams), options); // функція робить pageObject page goto викликає метод url(urlParams) і options 
 }
