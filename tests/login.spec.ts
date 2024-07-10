@@ -1,17 +1,23 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage, NegativeLoginPage } from "../src/pages/login.page"
+import { LoginPage } from '../src/pages/login.page';
+import { users } from '../src/users';
+import { goto } from '../src/navigation';
 
-test ('Positive Login test', async ({page}) => {
-   const loginPage = new LoginPage(page);
+test.describe('validation login tests', () => {
+  test.beforeEach( async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    await goto(loginPage);
+    await loginPage.validate(); 
+  })
+  test('Positiv login', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.login(users.testUser);
+  });
 
-   await loginPage.login();
-
-});
-
-
-test ('Negative Login test', async ({page}) => {
-    const negativeLogin = new NegativeLoginPage(page)
-
-    await negativeLogin.negativeLogin();
-    
+  test('Negative login', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.emailField.fill(users.testUser.email);
+    await loginPage.passwordField.fill('0000');
+    await loginPage.loginButton.click();
+  });
 });
