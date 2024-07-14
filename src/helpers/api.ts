@@ -2,8 +2,8 @@ import { APIRequestContext, expect } from '@playwright/test';
 
 const endpoints = {
   me: '/api/v1/dispatchers/me',
-  trucks: '/api/v1/trucks?page=1&page_size=10&archived=false',
-  owners: '/api/v1/owners?page=1&page_size=10&archived=false'
+  trucks: '/api/v1/trucks?',
+  owners: '/api/v1/owners?'
 } as const;
 
 export class API {

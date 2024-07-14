@@ -13,6 +13,8 @@ export abstract class BaseViewPage extends Base {
 
   protected abstract readonly URL: string;
 
+  async waitForLoadState(): Promise<void> {};
+    
   url() {
     return this.URL;
   }

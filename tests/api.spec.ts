@@ -16,21 +16,18 @@ test.describe('API checking tests', () => {
 
   test('get loggined used id', async ({ api }) => {
     const { id } = await api.get('me');
-    console.log(id);
 
     await expect(id).toEqual(751);
   });
 
-  test('get trucks numbers of year 2023', async ({ api, page }) => {
+  test('get trucks numbers of type ', async ({ api, page }) => {
     const trucksPage = new TrucksPage(page);
     await goto(trucksPage);
     await trucksPage.validate();
     const { items } = await api.get('trucks');
-    const newTrucks = items.filter(item => item.year === 2023).map(item => item.number);
-    console.log(newTrucks);
+    const newTrucks = items.filter(item => item.type === 'cv').map(item => item.number);
 
-    // just for comparing and understanding that test works
-    const result = ["Truck1", "Truck3", "Truck5"];
+    const result = ["Truck1"];
     await expect(newTrucks).toEqual(result);
   });
 
@@ -48,9 +45,7 @@ test.describe('API checking tests', () => {
       }
     });
 
-    // just for comparing and understanding that test works
-    console.log(addresses);
     await expect(addresses[Object.keys(addresses)[0]].length).toEqual(2);
-    // await expect(addresses[Object.keys(addresses)[1]].length).toEqual(9);
+  
   });
 })
