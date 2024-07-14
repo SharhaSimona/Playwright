@@ -1,5 +1,6 @@
-import { Base } from '../base';
-export class Header extends Base {
+import { Base } from "../base/base";
+
+export class Header extends Base{
   protected readonly root = this.locator('header');
 
   readonly burgerButton = this.root.locator('[class="d-flex align-center"]').first();

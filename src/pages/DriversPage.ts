@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test';
-import { BaseViewPage } from './baseViewPage';
+import { BaseViewPage } from './base/baseViewPage';
 import { Footer } from './components/footer';
 import { Navigation } from '../navigation';
 import { Table } from './components/table';

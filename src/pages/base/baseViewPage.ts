@@ -1,8 +1,8 @@
 import { Base } from './base';
-import { Header } from './components/header';
-import { Sidebar } from './components/sidebar';
-import { Table } from './components/table';
-import { Footer } from './components/footer';
+import { Header } from '../components/header';
+import { Sidebar } from '../components/sidebar';
+import { Table } from '../components/table';
+import { Footer } from '../components/footer';
 
 export abstract class BaseViewPage extends Base {
   readonly header = new Header(this.page);

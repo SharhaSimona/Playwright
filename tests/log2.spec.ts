@@ -1,17 +1,16 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../src/pages/LoginPage';
 import { users } from '../src/users';
-import { goto } from '../src/navigation';
 import { ChatsPage } from '../src/pages/ChatsPage';
+import { goto } from '../src/navigation';
 
 test.describe('validation login tests', () => {
   test.beforeEach( async ({ page }) => {
     const loginPage = new LoginPage(page);
     await goto(loginPage);
-    await loginPage.validate();
+    await loginPage.validate(); 
   })
-
-  test('Positiv login', async ({ page }) => {
+  test('Login to the app as test user', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.login(users.testUser);
     const chatsPage = new ChatsPage(page);
@@ -19,10 +18,10 @@ test.describe('validation login tests', () => {
     await expect(chatsPage.header.avatarButton).toHaveText(users.testUser.name);
   });
 
-  test('Negative login', async ({ page }) => {
+  test('Check login with wrong creds', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.emailField.fill(users.testUser.email);
-    await loginPage.passwordField.fill('1234');
+    await loginPage.passwordField.fill('0000');
     await loginPage.loginButton.click();
     await expect(loginPage.validationError).toBeVisible();
   });

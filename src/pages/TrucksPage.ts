@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test';
-import { BaseViewPage } from './baseViewPage';
+import { BaseViewPage } from './base/baseViewPage';
 import { Footer } from './components/footer';
 import { Navigation } from '../navigation';
 import { Table } from './components/table';
@@ -13,5 +13,9 @@ export class TrucksPage extends BaseViewPage implements Navigation{
   
     async waitForLoadState() {}
   
+    async validate() {
+        await expect(this.locator('[class="v-table__wrapper"]')).toBeVisible();
+        await this.page.waitForLoadState();
    
     }
+}
