@@ -48,4 +48,35 @@ test.describe('API checking tests', () => {
     await expect(addresses[Object.keys(addresses)[0]].length).toEqual(2);
   
   });
+
+  test('Replace digits with emojis in response Dims & payload', async ({ trucksPage, page }) => {
+    const emojiMap = ['😀', '🫠', '🫠', '🤤', '🤥', '🥵', '😎', '🤢', '👺', '👽️'];
+
+    await page.route('**/api/v1/trucks?*', async route => {
+      const response = await route.fetch();
+      const json = await response.json();
+      function changeNumber (number) {
+        return number.toString().split('').map((item)=> emojiMap[item]).join('');
+      }
+     
+    json.items = json.items.map((item) => {
+      if (item.trailer) {
+        item.trailer.payload = changeNumber(item.trailer.payload);
+        item.trailer.length = changeNumber(item.trailer.length);
+        item.trailer.min_width = changeNumber(item.trailer.min_width);
+        item.trailer.min_height = changeNumber(item.trailer.min_height);
+        }
+      return item;
+    });   
+
+    await route.fulfill({ 
+        response, 
+        json 
+      });
+    });
+    await goto(trucksPage);
+    await page.waitForSelector('table');
+    await page.screenshot({ path: 'screenshot.png' });
+ 
+  });
 })
