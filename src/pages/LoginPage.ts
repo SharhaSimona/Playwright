@@ -23,7 +23,7 @@ export class LoginPage extends Base implements Navigation{
 
   async login(user: User) {
     await this.emailField.fill(user.email);
-    await this.passwordField.fill('12345678');
+    await this.passwordField.fill(user.password);
     await this.loginButton.click();
     await this.page.waitForLoadState();
     await this.page.waitForResponse('/api/v1/dispatchers/me?')
@@ -32,8 +32,7 @@ export class LoginPage extends Base implements Navigation{
   async validate() {
     await expect(this.locator('[class="login-form__title text-h5 text-center font-weight-medium mb-2"]'))
                      .toHaveText('Welcome to Omni-dispatch TMS');
-    await 
-    expect(this.emailField).toBeVisible();
+    await expect(this.emailField).toBeVisible();
     await expect(this.passwordField).toBeVisible();
     await expect(this.loginButton).toBeVisible();
   }

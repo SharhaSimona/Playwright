@@ -1,5 +1,4 @@
 import { step } from "../../helpers/step"
-
 export class SomeSteps {
     @step ('Some Step 1')
     async someStep1() {

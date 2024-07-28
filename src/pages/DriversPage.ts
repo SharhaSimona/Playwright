@@ -14,5 +14,8 @@ export class DriversPage extends BaseViewPage implements Navigation{
 
   async waitForLoadState() {}
 
-  
+  async validate() {
+    await expect(this.locator('[class="v-table__wrapper"]')).toBeVisible();
+    await this.page.waitForLoadState();
+  }
 }
